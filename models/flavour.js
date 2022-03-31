@@ -13,14 +13,6 @@ class flavour extends Model {}
       type: DataTypes.STRING,
       allowNull: false,
     },
-    like: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    dislike: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     totalVotes: {
       type: DataTypes.INTEGER,
       allowNull: false,

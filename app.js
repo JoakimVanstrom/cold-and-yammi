@@ -12,8 +12,13 @@ app.use( express.urlencoded({extended: true}))
 const db = new Sequelize('sqlite://database/icecreams.sqlite')
 
 app.get('/', async (req, res) => {
-    const icecreams = await db.query('SELECT * FROM flavours', {type: Sequelize.QueryTypes.SELECT})
-    res.render('index', {icecreams})
+    const topFlavour = await db.query('SELECT * FROM flavours ORDER BY totalVotes DESC LIMIT 3', {type: Sequelize.QueryTypes.SELECT})
+    res.render('index', {topFlavour})
+})
+
+app.get('/vote', async (req, res) => {
+    const voteFlavour = await db.query('SELECT * FROM flavours', {type: Sequelize.QueryTypes.SELECT})
+    res.render('voteForm', {voteFlavour})
 })
 
 

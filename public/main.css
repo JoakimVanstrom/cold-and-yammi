@@ -32,7 +32,49 @@ header {
     margin: 0;
 }
 
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    padding-top: 1rem;
+}
+
 .voteNav {
-    width: 10rem;
+    display: flex;
+    background-color: whitesmoke;
+    width: 20rem;
+    height: 25rem;
+    grid-column: 4/5;
+    justify-content: center;
+    box-shadow: inset 0 0 10px;
+}
+.voteNav a{
+    text-decoration: none;
+    align-self: center;
+    font-size: 5rem;
+    color:black
+}
+
+.top-icecream {
+    width: 20rem;
+    height: 25rem;
+    background-color: whitesmoke;
+    grid-column: 7/8;
+    box-shadow: inset 0 0 10px;
+}
+
+
+.poll {
+    display: flex;
+    justify-content: space-around;
+}
+
+.box-wrapper {
+    background-color: whitesmoke;
+    width: 20rem;
+    display: flex;
+    justify-content: space-around;
     height: 10rem;
+    margin-top: 1rem;
+    align-self: center;
 }

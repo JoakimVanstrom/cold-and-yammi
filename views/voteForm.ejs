@@ -1,0 +1,17 @@
+<%- include('./layout/top') %>
+
+<div class="poll">
+  <form action="/vote" method="post">
+    <% for(let flavour of voteFlavour){ %>
+    <div class="box-wrapper">
+      <p><%= flavour.title %></p>
+      <div>
+        <input type="radio" value="<%= flavour.title %>" name="input" />
+      </div>
+    </div>
+    <% } %>
+    <button>Vote</button>
+  </form>
+</div>
+
+<%- include('./layout/bottom') %>
