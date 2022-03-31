@@ -5,9 +5,9 @@
 <div class="wrapper">
     <section class="top-icecream">
         <ul>
-            <li>Kola</li>
-            <li>Vanilj</li>
-            <li>Choklad</li>
+            <% for(let icecream of icecreams){ %>
+                <li><h3><%= icecream.title  %></h3> </li>
+            <% } %> 
         </ul>
     </section>
     <section class="voteNav">
