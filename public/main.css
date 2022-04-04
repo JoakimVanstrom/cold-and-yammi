@@ -16,6 +16,12 @@ header {
     text-align: center;
 }
 
+.list{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 2rem;
+}
+
 .header-title {
     grid-column: 1/4;
 }
@@ -74,7 +80,7 @@ header {
     width: 20rem;
     display: flex;
     justify-content: space-around;
-    height: 10rem;
+    height: 3rem;
     margin-top: 1rem;
     align-self: center;
 }

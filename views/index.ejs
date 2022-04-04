@@ -9,7 +9,7 @@
     <section class="top-icecream">
         <ol>
             <% for(let flavour of topFlavour){ %>
-                <li><h3><%= flavour.title  %></h3> </li>
+                <li><div class="list"><h3><%= flavour.title  %></h3> <p><%= flavour.totalVotes %> Votes</p></div> </li>
             <% } %> 
         </ol>
     </section>
