@@ -20,7 +20,8 @@ class flavour extends Model {}
   },
   {
       sequelize,
-      modelName: 'flavours'
+      modelName: 'flavours',
+      timestamps: false
   }
   );
   return flavour

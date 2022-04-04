@@ -1,6 +1,7 @@
 const express = require('express')
 require('dotenv').config()
 const Sequelize = require('sequelize')
+const flavour = require('./models/flavour')
 
 
 const app = express()
@@ -21,12 +22,19 @@ app.get('/vote', async (req, res) => {
     res.render('voteForm', {voteFlavour})
 })
 
+app.get('/error', (req, res) => {
+    res.render('error')
+})
+
 app.post('/vote', async (req, res) => {
     const flavour = req.body.voteSelected
     const email = req.body.email
+    // const getEmail = await db.query(`'SELECT * FROM users WHERE email = '${email}'`, {type: Sequelize.QueryTypes.SELECT})
     const voted = await db.query(`SELECT totalVotes FROM flavours WHERE title = '${flavour}'`, {type: Sequelize.QueryTypes.SELECT})
     const addVote = voted[0].totalVotes + 1
     await db.query(`UPDATE flavours SET totalVotes = ${addVote} WHERE title = '${flavour}'`, {type: Sequelize.QueryTypes.UPDATE})
+    await db.query(`INSERT INTO users (email, flavour, voted) VALUES ('${email}', '${flavour}', '1')`, {type: Sequelize.QueryTypes.SELECT})
+   console.log(result)
     res.redirect('/')
 })
 

@@ -9,11 +9,11 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    username: {
+    email: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    email: {
+    flavour: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -24,7 +24,8 @@ module.exports = (sequelize) => {
   },
   {
       sequelize,
-      modelName: 'users'
+      modelName: 'users',
+      timestamps: false
   }
   );
   return users

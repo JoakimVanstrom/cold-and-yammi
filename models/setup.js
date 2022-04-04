@@ -26,6 +26,6 @@ flavour.sync({ force: true }).then(() => {
 
 user.sync({ force: true }).then(() => {
   user.bulkCreate(
-    [{ username: "admin", email: "jokko@test.se", voted: 0 }]
+    [{ email: "jokko@test.se", flavour: 'peachy', voted: 0 }]
     );
 });
