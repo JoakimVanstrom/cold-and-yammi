@@ -1,0 +1,27 @@
+<%- include('./layout/top') %>
+
+
+
+<div class="wrapper">
+    <section class="voteNav">
+        <a href="/vote">Vote here</a>
+    </section>
+    <section class="top-icecream">
+        <ol>
+            <% for(let flavour of flavours){ %>
+                <li><div class="list"><h3><%= flavour.title  %></h3> <p><%= flavour.totalVotes %> Votes</p></div> </li>
+            <% } %>
+        </ol>
+    </section>
+
+</div>
+
+
+
+
+
+
+
+
+
+<%- include('./layout/bottom') %>

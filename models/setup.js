@@ -1,15 +1,11 @@
 const { Sequelize, Model, DataTypes } = require("sequelize");
+const sequelize = require('./database');
 
-const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: "database/icecreams.sqlite",
-});
+const Flavour = require("./Flavours")(sequelize, DataTypes);
+const User = require("./users")(sequelize, DataTypes);
 
-const flavour = require("./flavour")(sequelize, DataTypes);
-const user = require("./users")(sequelize, DataTypes);
-
-flavour.sync({ force: true }).then(() => {
-  flavour.bulkCreate([
+sequelize.sync({ force: true }).then(() => {
+  Flavour.bulkCreate([
     { title: "Fruity-explossion", totalVotes: 2 },
     { title: "Pear-mint", totalVotes: 4 },
     { title: "Tripple-chocolate", totalVotes: 2 },
@@ -24,8 +20,10 @@ flavour.sync({ force: true }).then(() => {
 });
 
 
-user.sync({ force: true }).then(() => {
-  user.bulkCreate(
+User.sync({ force: true }).then(() => {
+  User.bulkCreate(
     [{ email: "jokko@test.se", flavour: 'peachy', voted: 0 }]
     );
 });
+
+module.exports = sequelize;
