@@ -2,22 +2,35 @@
 
 
 
-<div class="wrapper">
-    <section class="voteNav">
-        <a href="/vote">Vote here</a>
-    </section>
-    <section class="top-icecream">
-        <ol>
-            <% for(let flavour of flavours){ %>
-                <li><div class="list"><h3><%= flavour.title  %></h3> <p><%= flavour.totalVotes %> Votes</p></div> </li>
-            <% } %>
-        </ol>
-    </section>
+<div class="login-wrapper">
+    <form action="/login" method="POST">
+      <div class="login-container">
+        <h1>Login</h1>
 
-</div>
+        <label for="username"><b>Username</b></label>
+        <input
+          type="text"
+          placeholder="Enter username"
+          name="username"
+          required
+        />
+        <br />
+        <label for="password"><b>Password</b></label>
+        <input
+          type="text"
+          placeholder="Enter Password"
+          name="password"
+          required
+        />
 
 
-
+        <button type="submit" class="btn">Login</button>
+      </div>
+      <div class="register-wrapper">
+        <p>Don't have an account? <a href="/register">Register here</a>.</p>
+      </div>
+    </form>
+  </div>
 
 
 

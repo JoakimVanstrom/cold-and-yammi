@@ -1,11 +1,11 @@
 const { DataTypes, Model } = require("sequelize");
-const sequelize = require('./database');
 
+module.exports = database => {
 class Flavour extends Model {}
 
  
   Flavour.init({
-    flavour_id: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -20,10 +20,10 @@ class Flavour extends Model {}
     },
   },
   {
-      sequelize,
+      sequelize: database,
       modelName: 'Flavour',
       timestamps: false
   }
   )
-
-module.exports = Flavour;
+  return Flavour
+}

@@ -15,6 +15,20 @@ header {
     font-family: 'Fredoka One', cursive;
     text-align: center;
 }
+header a {
+    text-decoration: none;
+}
+.login-nav {
+    text-decoration: none;
+    grid-column: 10;
+    background-color: whitesmoke;
+    justify-self: center;
+    align-self: center;
+    padding: 2rem;
+    font-size: 2rem;
+    color: purple;
+    box-shadow: inset 0 0 10px;
+}
 
 .list{
     display: flex;
@@ -37,6 +51,7 @@ header {
     font-size: 28px;
     margin: 0;
 }
+
 
 .wrapper {
     display: grid;
@@ -83,4 +98,40 @@ header {
     height: 3rem;
     margin-top: 1rem;
     align-self: center;
+}
+
+.login-wrapper {
+    display: grid;
+    padding-top: 1rem;
+    place-items: center;
+}
+.login-wrapper input {
+    margin-top: 1rem;
+    padding: 1rem 0 1rem 0;
+}
+.login-container {
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    padding: 0 1rem 0 1rem;
+    width: 20rem;
+    height: 25rem;
+    box-shadow: inset 0 0 10px;
+}
+
+.btn {
+    margin-top: 2rem;
+    padding: 1rem 0 1rem 0;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.register-container {
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    padding: 0 1rem 0 1rem;
+    width: 20rem;
+    height: 30rem;
+    box-shadow: inset 0 0 10px;
 }

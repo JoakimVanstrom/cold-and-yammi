@@ -1,0 +1,44 @@
+<%- include('./layout/top') %>
+
+
+
+<div class="login-wrapper">
+    <form action="/register" method="post">
+      <div class="register-container">
+        <h1>Register</h1>
+
+        <label for="username"><b>Name</b></label>
+          <input
+            type="text"
+            placeholder="Enter Name"
+            name="username"
+            required
+          />
+
+        <label for="userEmail"><b>Email</b></label>
+        <input
+          type="text"
+          placeholder="Enter Email"
+          name="userEmail"
+          required
+        />
+        <br />
+        <label for="password"><b>Password</b></label>
+        <input
+          type="text"
+          placeholder="Enter Password"
+          name="password"
+          required
+        />
+
+        <button type="submit" class="btn">Register</button>
+      </div>
+    </form>
+  </div>
+
+
+
+
+
+
+<%- include('./layout/bottom') %>

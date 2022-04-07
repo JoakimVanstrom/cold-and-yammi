@@ -1,32 +1,49 @@
-const { DataTypes, Model } = require("sequelize");
+const {Model, DataTypes} = require('sequelize')
+const bcrypt = require('bcryptjs')
 
-class users extends Model {}
+module.exports = database => {
+  class User extends Model{
+    static async authenticate(username, password){
+      const user = await User.findOne({where: {username}})
+      if(!user){ 
+        throw new Error('Invalid username')
+      }
+      if(!bcrypt.compareSync(password, user.password_hash)){
+        throw new Error('Invalid password')
+      }      
+      return user
+    }
+  }
 
-module.exports = (sequelize) => {
- users.init({
-    user_id: {
+ User.init({
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    email: {
-      type: DataTypes.STRING,
+    username: {
+      type: DataTypes.TEXT,
+      unique: true,
       allowNull: false,
     },
-    flavour: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    voted: {
-      type: DataTypes.INTEGER,
+    password_hash: {
+      type: DataTypes.TEXT,
       allowNull: false,
     },
+    userEmail: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    }
   },
   {
-      sequelize,
-      modelName: 'users',
-      timestamps: false
+      sequelize: database,
+      modelName: 'User',
+      timestamps: false,
+      hooks: {
+        beforeCreate(instance, options){
+          instance.password_hash =  bcrypt.hashSync(instance.password_hash)
+        }
   }
-  );
-  return users
+});
+  return User
 }
