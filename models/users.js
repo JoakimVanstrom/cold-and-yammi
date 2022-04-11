@@ -13,6 +13,9 @@ module.exports = database => {
       }      
       return user
     }
+    hasVoted() {
+      return this.flavors_id != null;
+    }
   }
 
  User.init({
@@ -30,7 +33,7 @@ module.exports = database => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    userEmail: {
+    email: {
       type: DataTypes.TEXT,
       allowNull: false,
     }

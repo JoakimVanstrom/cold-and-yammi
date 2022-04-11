@@ -18,65 +18,84 @@ app.use( session({
 
 
 app.get('/', async (req, res) => {
+    const user = req.session.user
     const topFlavour = await Flavour.findAll({
         limit: 5,
         order: [['totalVotes', 'DESC']]
     })
-    res.render('index', {topFlavour})
+    res.render('index', {topFlavour, user})
 })
 
 app.get('/vote', async (req, res) => {
+    const user = req.session.user
     const voteFlavour = await Flavour.findAll()
-    res.render('voteForm', {voteFlavour})
+    res.render('voteForm', {voteFlavour, user})
 })
 
 app.get('/login' , (req, res) => {
-    res.render('login')
+    const user = req.session.user
+    const errorMessage = req.session.errorMessage 
+    res.render('login', {user, errorMessage})
 })
 app.get('/register' , (req, res) => {
-    res.render('register')
+  const user = req.session.user
+    res.render('register', {user})
 })
 
 app.post('/register', async (req, res) => {
-    const {username, userEmail, password} = req.body
+    const {username, email, password} = req.body
     let password_hash = bcrypt.hashSync(password, 10)
-    const user = await User.create({username, userEmail, password_hash})
-    req.session.user = {id: user.id, username: user.username}
+    const user = await User.create({username, email, password_hash})
+    req.session.user = {id: user.id, email: user.email, username: user.username}
     res.redirect('/')
 })
 
 app.post('/login', async (req,res) => {
     try{
-      const {username, password} = req.body
-      const user = await User.authenticate(username, password)
+      const {username, password, email} = req.body
+      const user = await User.authenticate(username, password, email)
       req.session.user = {
         username: user.username,
+        email: user.email,
         id: user.id
       }
-      res.redirect('/welcome')
+      res.redirect('/')
     }catch(error){
       req.session.errorMessage = error.message
-      res.redirect('/')
+      res.redirect('/login', {errorMessage: error.message})
     }
+  })
+
+  app.get('/logout', (req, res) => { 
+    const user = req.session.user
+    res.render('logout', {user})
+  })
+
+  app.post('/logout', (req, res) => {
+    req.session = null
+    res.clearCookie('session')
+    res.redirect('/')
   })
 
 
 app.post('/vote', async (req, res) => {
-    const {voteSelected, userName, userEmail} = req.body
-    const dupUser = await User.findOne({where: {email: userEmail}})
-    if(!dupUser.flavour_id){
-    const votedFlavour = await Flavour.findOne({where: {flavour_id: voteSelected}})
+    const {voteSelected} = req.body
+    const email = req.session.user.email
+    console.log(email)
+    console.log(voteSelected)
+    const findUser = await User.findOne({where: {email: email}})
+    if(!findUser.flavour_id){
+    const votedFlavour = await Flavour.findOne({where: {id: voteSelected}})
+    console.log(votedFlavour)
     votedFlavour.increment('totalVotes', {by: 1})
-    await User.update({flavour: voteSelected}, {where: {email: userEmail}})
+    await User.update({flavour_id: voteSelected}, {where: {email: email}})
     res.redirect('/')
     }else{
         res.redirect('/error')
     }
 })
 
-app.get('/error', (req, res) => {
-    res.render('error')
-})
+
 
 const PORT =  process.env.PORT || 8080
 app.listen(PORT, () => {

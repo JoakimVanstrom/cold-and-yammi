@@ -3,6 +3,9 @@
 
 
 <div class="login-wrapper">
+    <% if(errorMessage){ %>
+        <p class="error"><%= errorMessage %></p>
+      <% } %>
     <form action="/login" method="POST">
       <div class="login-container">
         <h1>Login</h1>

@@ -16,5 +16,10 @@
            <a href="/"><h1>Cold n' Yammi</h1></a> 
             <h2>ice cream in my tummy</h2> 
         </section>
+
+        <% if (!user) { %>
         <a class="login-nav" href="/login">Login here</a>
+        <% } else { %>
+        <a class="login-nav" href="/logout">Logout here</a>
+        <% } %>
     </header>
