@@ -1,9 +1,12 @@
 <%- include('./layout/top') %>
 
-<h1>Logout</h1>
+<div class="logout-form">
+    <h1>Logout</h1>
+    <form action="/logout" method="post">
+        <button>Logout</button>
+    </form>
 
-<form action="/logout" method="post">
-    <button>Logout</button>
-</form>
+</div>
+
 
 <%- include('./layout/bottom') %>

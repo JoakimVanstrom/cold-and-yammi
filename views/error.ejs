@@ -1,4 +1,6 @@
 <%- include('./layout/top') %>
-
-<h1>Already voted</h1>
+<div class="error">
+    <h1><%= errorMessage %> </h1>
+    <button class="btn"><a href="/">Back home</a></button>
+</div>
 <%- include('./layout/bottom') %>

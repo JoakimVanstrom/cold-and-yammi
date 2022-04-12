@@ -1,3 +1,4 @@
+const {Sequelize} = require("sequelize");
 const express = require('express')
 const {User, Flavour} = require('./models')
 const session = require('cookie-session')
@@ -21,7 +22,8 @@ app.get('/', async (req, res) => {
     const user = req.session.user
     const topFlavour = await Flavour.findAll({
         limit: 5,
-        order: [['totalVotes', 'DESC']]
+        order: [['totalVotes', 'DESC']],
+        where: {totalVotes: {[Sequelize.Op.gt]: 0}}
     })
     res.render('index', {topFlavour, user})
 })
@@ -44,10 +46,16 @@ app.get('/register' , (req, res) => {
 
 app.post('/register', async (req, res) => {
     const {username, email, password} = req.body
+    const findEmail = await User.findOne({where: {email}})
     let password_hash = bcrypt.hashSync(password, 10)
+    if(findEmail){
+      await User.update({username, email, password_hash}, {where: {email}})
+      res.redirect('/')
+    } else {
     const user = await User.create({username, email, password_hash})
     req.session.user = {id: user.id, email: user.email, username: user.username}
     res.redirect('/')
+    }
 })
 
 app.post('/login', async (req,res) => {
@@ -79,23 +87,31 @@ app.post('/login', async (req,res) => {
 
 
 app.post('/vote', async (req, res) => {
-    const {voteSelected} = req.body
-    const email = req.session.user.email
-    console.log(email)
-    console.log(voteSelected)
-    const findUser = await User.findOne({where: {email: email}})
-    if(!findUser.flavour_id){
+    const {voteSelected, email} = req.body
+    console.log(req.body)
     const votedFlavour = await Flavour.findOne({where: {id: voteSelected}})
-    console.log(votedFlavour)
-    votedFlavour.increment('totalVotes', {by: 1})
-    await User.update({flavour_id: voteSelected}, {where: {email: email}})
+    const findUser = await User.findOne({where: {email: email}})
+    if(!findUser){
+      await User.create({
+        email: email,
+        flavour_id: voteSelected
+      });
+      await Flavour.update({
+        totalVotes: votedFlavour.totalVotes + 1},
+        {where: {id: voteSelected}}
+      )
     res.redirect('/')
-    }else{
-        res.redirect('/error')
+    }else {
+      res.redirect('/error')
     }
 })
 
 
+app.get('/error', (req, res) => {
+    const user = req.session.user
+    errorMessage = 'You have already voted'
+    res.render('error', {user, errorMessage})
+})
 
 const PORT =  process.env.PORT || 8080
 app.listen(PORT, () => {

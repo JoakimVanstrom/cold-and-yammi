@@ -2,12 +2,12 @@
 
 <div class="poll">
   <form action="/vote" method="post">
-    <input type="email" name="email" placeholder="Email">
+    <input type="email" name="email" placeholder="Email" required>
     <% for(let flavour of voteFlavour){ %>
     <div class="box-wrapper">
       <p><%= flavour.title %></p>
       <div>
-        <input type="radio" value="<%= flavour.id %>" name="voteSelected" />
+        <input type="radio" value="<%= flavour.id %>" name="voteSelected" required/>
       </div>
     </div>
     <% } %>

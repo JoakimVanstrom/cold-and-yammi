@@ -15,7 +15,7 @@ header {
     font-family: 'Fredoka One', cursive;
     text-align: center;
 }
-header a {
+a {
     text-decoration: none;
 }
 .login-nav {
@@ -118,6 +118,11 @@ header a {
     height: 25rem;
     box-shadow: inset 0 0 10px;
 }
+.username{
+grid-column: 9;
+justify-self: center;
+align-self: center;
+}
 
 .btn {
     margin-top: 2rem;
@@ -134,4 +139,20 @@ header a {
     width: 20rem;
     height: 30rem;
     box-shadow: inset 0 0 10px;
+}
+
+.error{
+    display: grid;
+    place-items: center;
+}
+.error button {
+    margin-top: 1rem;
+    padding: 1rem 0 1rem 0;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.logout-form {
+    display:grid;
+    place-items: center;
 }

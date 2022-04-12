@@ -25,16 +25,14 @@ module.exports = database => {
       autoIncrement: true,
     },
     username: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       unique: true,
-      allowNull: false,
     },
     password_hash: {
-      type: DataTypes.TEXT,
-      allowNull: false,
+      type: DataTypes.STRING,
     },
     email: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: false,
     }
   },
@@ -42,11 +40,11 @@ module.exports = database => {
       sequelize: database,
       modelName: 'User',
       timestamps: false,
-      hooks: {
-        beforeCreate(instance, options){
-          instance.password_hash =  bcrypt.hashSync(instance.password_hash)
-        }
-  }
+  //     hooks: {
+  //       beforeCreate(instance, options){
+  //         instance.password_hash =  bcrypt.hashSync(instance.password_hash)
+  //       }
+  // }
 });
   return User
 }
